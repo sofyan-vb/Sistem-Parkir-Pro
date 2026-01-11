@@ -9,7 +9,7 @@
 
 Sistem ini dirancang dengan dua mode operasional yang dapat diganti secara instan:
 
-### 1. 🎹 Mode Manual (Operasional Nyata)
+###  🎹 Mode Manual (Operasional Nyata)
 Mode ini digunakan untuk petugas parkir di lapangan.
 * **Input Langsung:** Form input cepat untuk Plat Nomor, Jenis Kendaraan, dan Slot Parkir (Teks Bebas).
 * **Sistem Checkout Canggih:**
@@ -18,14 +18,14 @@ Mode ini digunakan untuk petugas parkir di lapangan.
     * Validasi agar kendaraan tidak bisa keluar jika belum masuk.
 * **UI Bersih:** Tampilan 2 kolom yang fokus pada input data dan tabel monitoring.
 
-### 2. 🤖 Mode Live Simulasi (Demo/Testing)
+###  🤖 Mode Live Simulasi (Demo/Testing)
 Mode ini digunakan untuk presentasi atau pengujian beban sistem.
 * **Traffic Generator:** Kendaraan datang secara otomatis dengan interval acak.
 * **Antrean Masuk:** Sistem antrean visual sebelum kendaraan mendapatkan slot.
 * **Proses Admin:** Admin menyetujui kendaraan dari antrean dan memilihkan slot (L1-A, VIP, dll).
 * **Random Exit:** Kendaraan akan keluar secara acak untuk mensimulasikan dinamika parkiran.
 
-### 3. 📊 Fitur Umum
+###  📊 Fitur Umum
 * **Real-time Dashboard:** Jam digital live dan status parkir yang update tanpa refresh.
 * **Laporan Riwayat:** Mencatat setiap transaksi selesai (Plat, Jam Masuk/Keluar, Pendapatan).
 * **Filter Tanggal:** Melihat pendapatan pada tanggal tertentu.
