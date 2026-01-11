@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Parkir Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%231f2937%22/><path d=%22M20,40 L80,40 L70,25 H30 Z M15,40 H85 V50 H15 Z%22 fill=%22white%22/><circle cx=%2230%22 cy=%2250%22 r=%226%22 fill=%22white%22/><circle cx=%2270%22 cy=%2250%22 r=%226%22 fill=%22white%22/><circle cx=%2235%22 cy=%2280%22 r=%228%22 fill=%22none%22 stroke=%22white%22 stroke-width=%223%22/><circle cx=%2265%22 cy=%2280%22 r=%228%22 fill=%22none%22 stroke=%22white%22 stroke-width=%223%22/><path d=%22M35,80 L50,68 L65,80%22 stroke=%22white%22 stroke-width=%224%22 fill=%22none%22/></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="loading-screen" class="loader-overlay hidden">
+        <div class="loader-content">
+            <div class="race-track">
+                <div class="racer bike-racer"><i class="fa-solid fa-motorcycle"></i><div class="wind"></div></div>
+                <div class="racer car-racer"><i class="fa-solid fa-car-side"></i><div class="wind"></div></div>
+            </div>
+            <h3 id="loading-text">Memproses Data...</h3>
+        </div>
+    </div>
+
+    <section id="landing-page">
+        <div class="landing-card">
+            
+            <div id="clock-landing" class="live-clock landing-style"></div>
+
+            <div class="hero-illustration">
+                <div class="vehicle-circle car-circle"><i class="fa-solid fa-car-side"></i></div>
+                <div class="vehicle-circle bike-circle"><i class="fa-solid fa-motorcycle"></i></div>
+            </div>
+
+            <h1>Smart Parking Pro</h1>
+            <p>Sistem Antrean & Manajemen Parkir Otomatis</p>
+            
+            <button onclick="bukaAplikasi()" class="btn-glow">
+                <i class="fa-solid fa-power-off"></i> Masuk ke Sistem
+            </button>
+        </div>
+    </section>
+
+    <section id="main-app">
+        <div class="container-fluid">
+            
+            <div class="app-header">
+                <div class="brand">
+                    <i class="fa-solid fa-square-parking fa-2x"></i>
+                    <div>
+                        <h2>Dashboard Admin</h2>
+                        <small id="mode-indicator">Mode: Input Manual</small>
+                    </div>
+                </div>
+
+                <div id="clock-dashboard" class="live-clock dashboard-style"></div>
+
+                <div class="controls">
+                    <div class="mode-switch-container">
+                        <button onclick="setAppMode('manual')" id="btn-mode-manual" class="btn-mode active">
+                            <i class="fa-solid fa-keyboard"></i> Manual
+                        </button>
+                        <button onclick="setAppMode('live')" id="btn-mode-live" class="btn-mode">
+                            <i class="fa-solid fa-robot"></i> Live Simulasi
+                        </button>
+                    </div>
+
+                    <div id="control-simulasi-wrapper" class="hidden" style="margin-left: 10px; border-left: 1px solid #ddd; padding-left: 10px;">
+                        <button onclick="toggleSimulasi()" id="btn-simulasi" class="btn-simulasi paused">
+                            <i class="fa-solid fa-play"></i> Mulai
+                        </button>
+                    </div>
+                    
+                    <button onclick="kembaliKeHome()" class="btn-home" style="margin-left: 10px;">
+                        <i class="fa-solid fa-house"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="modalStruk" class="modal hidden">
+                <div class="modal-content">
+                    <i class="fa-solid fa-circle-check fa-4x" style="color: #2ecc71; margin-bottom: 15px;"></i>
+                    <h3>Transaksi Selesai</h3>
+                    <div id="isiStruk" class="struk-detail"></div>
+                    <button onclick="tutupModal()" class="btn-close">Tutup & Cetak</button>
+                </div>
+            </div>
+
+            <div id="dashboard-grid" class="grid-dashboard mode-manual">
+
+                <div id="component-manual" class="card manual-section">
+                    
+                    <div class="manual-tabs">
+                        <button onclick="switchManualTab('masuk')" id="tab-mn-masuk" class="mn-tab active">
+                            <i class="fa-solid fa-circle-plus"></i> Kendaraan Masuk
+                        </button>
+                        <button onclick="switchManualTab('keluar')" id="tab-mn-keluar" class="mn-tab">
+                            <i class="fa-solid fa-circle-minus"></i> Kendaraan Keluar
+                        </button>
+                    </div>
+
+                    <div id="form-manual-masuk">
+                        <p class="subtitle">Input kendaraan baru yang masuk.</p>
+                        
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Plat Nomor</label>
+                                <div class="input-group">
+                                    <i class="fa-solid fa-car-side"></i>
+                                    <input type="text" id="direct-plat" placeholder="B 1234 XYZ" autocomplete="off" style="text-transform: uppercase; font-weight:bold; font-size:1.1rem;">
+                                </div>
+                            </div>
+                            <div class="form-group half">
+                                <label>Jenis</label>
+                                <div class="input-group">
+                                    <i class="fa-solid fa-list"></i>
+                                    <select id="direct-jenis" style="font-size:1rem;">
+                                        <option value="Mobil">Mobil</option>
+                                        <option value="Motor">Motor</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lokasi / Slot Parkir</label>
+                            <div class="input-group">
+                                <i class="fa-solid fa-map-pin"></i>
+                                <input type="text" id="direct-slot" placeholder="Contoh: A-1, Depan Toko" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <button onclick="prosesMasukDirect()" class="btn-primary" style="margin-top: 15px; padding: 15px; background: #1f2937;">
+                            <i class="fa-solid fa-print"></i> Cetak Karcis Masuk
+                        </button>
+                    </div>
+
+                    <div id="form-manual-keluar" class="hidden">
+                        <p class="subtitle">Scan atau ketik plat nomor untuk checkout.</p>
+                        
+                        <div class="checkout-box">
+                            <label>Cari Plat Nomor / Karcis</label>
+                            <div class="search-row">
+                                <input type="text" id="cari-plat" placeholder="Ketik Plat Nomor..." autocomplete="off" style="text-transform: uppercase; font-weight:bold;">
+                                <button onclick="cekTiketKeluar()" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i> Cek</button>
+                            </div>
+                        </div>
+
+                        <div id="tiket-result" class="tiket-info hidden">
+                            <div class="info-row">
+                                <span>Plat Nomor:</span>
+                                <strong id="res-plat">-</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Jenis:</span>
+                                <strong id="res-jenis">-</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Jam Masuk:</span>
+                                <span id="res-masuk">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span>Durasi:</span>
+                                <span id="res-durasi">-</span>
+                            </div>
+                            <hr>
+                            <div class="total-row">
+                                <span>Total Tagihan:</span>
+                                <h2 id="res-total">Rp 0</h2>
+                            </div>
+
+                            <button onclick="prosesBayarManual()" class="btn-bayar-act">
+                                <i class="fa-solid fa-money-bill-wave"></i> Bayar & Keluar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="component-live-queue" class="card queue-section hidden">
+                    <h3><i class="fa-solid fa-bell"></i> Antrean Live</h3>
+                    <p class="subtitle">Menunggu kendaraan dari sistem...</p>
+                    <div id="queue-list" class="queue-container">
+                        <div class="empty-state">Antrean Kosong</div>
+                    </div>
+                </div>
+
+                <div id="component-live-process" class="card process-section hidden">
+                    <h3><i class="fa-solid fa-user-gear"></i> Proses Admin</h3>
+                    <div class="form-group">
+                        <label>Kendaraan Terpilih</label>
+                        <input type="text" id="selected-plat" placeholder="Pilih dari antrean..." readonly>
+                        <input type="hidden" id="selected-jenis">
+                    </div>
+                    <div class="form-group">
+                        <label>Tetapkan Slot</label>
+                        <select id="slot-parkir">
+                            <option value="">-- Pilih Slot --</option>
+                            <option value="L1-A">L1-A</option>
+                            <option value="L1-B">L1-B</option>
+                            <option value="L2-A">L2-A</option>
+                            <option value="L2-B">L2-B</option>
+                            <option value="VIP">VIP</option>
+                        </select>
+                    </div>
+                    <button onclick="prosesMasuk()" class="btn-primary" id="btn-masuk" disabled>
+                        Izinkan Masuk
+                    </button>
+                </div>
+
+                <div class="card table-section">
+                    <h3><i class="fa-solid fa-square-parking"></i> Data Parkir Aktif</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Info Kendaraan</th>
+                                    <th>Slot</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th> </tr>
+                            </thead>
+                            <tbody id="tabel-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-fluid" style="margin-top: 20px;">
+            <div class="card history-section">
+                <div class="history-header">
+                    <h3><i class="fa-solid fa-clock-rotate-left"></i> Laporan Riwayat</h3>
+                    <input type="date" id="filter-date" onchange="renderRiwayat()">
+                </div>
+                <div class="stats-box">
+                    <div class="stat-item"><small>Total Unit</small><strong id="stat-total">0</strong></div>
+                    <div class="stat-item"><small>Pendapatan</small><strong id="stat-pendapatan">Rp 0</strong></div>
+                </div>
+                <table>
+                    <thead>
+                        <tr><th>Plat</th><th>Jenis</th><th>Masuk</th><th>Keluar</th><th>Biaya</th></tr>
+                    </thead>
+                    <tbody id="tabel-riwayat"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
