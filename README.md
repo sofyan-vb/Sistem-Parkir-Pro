@@ -2,7 +2,7 @@
 
 **Sistem Manajemen Parkir Hybrid (Manual & Simulasi)** Aplikasi berbasis web modern untuk mengelola operasional parkir kendaraan (Mobil & Motor). Mendukung mode input manual untuk penggunaan nyata dan mode simulasi otomatis untuk demonstrasi sistem.
 
-![Banner Project](https://via.placeholder.com/screenshot/gambar.png)
+![Banner Project](screenshot/gambar.png)
 *(Ganti link gambar di atas dengan screenshot dashboard Anda)*
 
 ## 🌟 Fitur Utama
